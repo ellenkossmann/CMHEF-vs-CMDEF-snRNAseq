@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>CMHEF vs CMDEF exp 3-6, old</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">CMHEF vs CMDEF</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">CMHEF vs CMDEF exp 3-6, old</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2026-07-21
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>CMHEF vs CMDEF/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20260716code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20260716)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20260716code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20260716)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong70f7ca5">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 70f7ca5
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong70f7ca5"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 70f7ca5.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .RData
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  CMHEF-vs-CMDEF-exp3-6,-old.Rmd
+    Untracked:  analysis/3 vs 4 combined.Rmd
+    Untracked:  analysis/CMHEF vs CMDEF trying new QCs.Rmd
+    Untracked:  analysis/DEA.Rmd
+    Untracked:  analysis/Second Cycle QC.Rmd
+    Untracked:  analysis/snRNAseq CMHEF vs CMDEF.Rmd
+    Untracked:  analysis/snRNAseq analysis exp3 diseased.Rmd
+    Untracked:  analysis/snRNAseq analysis exp4 diseased.Rmd
+    Untracked:  analysis/snRNAseq analysis exp4 healthy.Rmd
+    Untracked:  figure/
+    Untracked:  renv.lock
+    Untracked:  renv/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Modified:   .gitignore
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd</code>) and HTML
+(<code>docs/CMHEF_vs_CMDEF_exp3_6__first_QC.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+70f7ca5
+</td>
+<td>
+ellenkossmann
+</td>
+<td>
+2026-07-21
+</td>
+<td>
+Complete initial snRNA-seq QC and save clustered Seurat checkpoint
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+</div>
+<div id="read-in-and-prepare-datasets" class="section level1">
+<h1>Read in and prepare Datasets</h1>
+<pre class="r"><code># Sample 3 healthy
+Exp3_CMHEF_NC &lt;- here(&quot;data&quot;,  &quot;cellbender_output_Exp3_CMHEF_NC_filtered.h5&quot;)
+counts_3H &lt;- Read_CellBender_h5_Mat(file_name = Exp3_CMHEF_NC)
+preQC_3H &lt;- CreateSeuratObject(counts = counts_3H,  project = &quot;Exp3_CMHEF_NC&quot;)
+
+# Sample 3 diseased
+Exp3_CMDEF_NC &lt;- here(&quot;data&quot;, &quot;cellbender_output_Exp3_CMDEF_NC_filtered.h5&quot;)
+counts_3D &lt;- Read_CellBender_h5_Mat(file_name = Exp3_CMDEF_NC)
+preQC_3D &lt;- CreateSeuratObject(counts = counts_3D, project = &quot;Exp3_CMDEF_NC&quot;)
+
+# Sample 4 healthy 
+Exp4_CMHEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp4_CMHEF_NC_filtered.h5&quot;)
+counts_4H &lt;- Read_CellBender_h5_Mat(file_name = Exp4_CMHEF_NC)
+preQC_4H &lt;- CreateSeuratObject(counts = counts_4H, project = &quot;Exp4_CMHEF_NC&quot;)
+
+# Sample 4 diseased 
+Exp4_CMDEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp4_CMDEF_NC_filtered.h5&quot;)
+counts_4D &lt;- Read_CellBender_h5_Mat(file_name = Exp4_CMDEF_NC)
+preQC_4D &lt;- CreateSeuratObject(counts = counts_4D,project = &quot;Exp4_CMDEF_NC&quot;)
+
+#sample 5 healthy
+Exp5_CMHEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp5_CMHEF_NC_filtered.h5&quot;)
+counts_5H &lt;- Read_CellBender_h5_Mat(file_name = Exp5_CMHEF_NC)
+preQC_5H &lt;- CreateSeuratObject(counts = counts_5H,project = &quot;Exp5_CMHEF_NC&quot;)
+
+#sample 5 diseased
+Exp5_CMDEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp5_CMDEF_NC_filtered.h5&quot;)
+counts_5D &lt;- Read_CellBender_h5_Mat(file_name = Exp5_CMDEF_NC)
+preQC_5D &lt;- CreateSeuratObject(counts = counts_5D,project = &quot;Exp5_CMDEF_NC&quot;)
+
+#sample 6 healthy
+Exp6_CMHEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp6_CMHEF_NC_filtered.h5&quot;)
+counts_6H &lt;- Read_CellBender_h5_Mat(file_name = Exp6_CMHEF_NC)
+preQC_6H &lt;- CreateSeuratObject(counts = counts_6H,project = &quot;Exp6_CMHEF_NC&quot;)
+
+#sample 6 diseased
+Exp6_CMDEF_NC &lt;- here(&quot;data&quot;,&quot;cellbender_output_Exp6_CMDEF_NC_filtered.h5&quot;)
+counts_6D &lt;- Read_CellBender_h5_Mat(file_name = Exp6_CMDEF_NC)
+preQC_6D &lt;- CreateSeuratObject(counts = counts_6D,project = &quot;Exp6_CMDEF_NC&quot;)</code></pre>
+<pre class="r"><code># Sample and condition metadata
+
+preQC_3H$sample &lt;- &quot;Exp3_CMHEF_NC&quot;
+preQC_3H$condition &lt;- &quot;healthy&quot;
+
+preQC_3D$sample &lt;- &quot;Exp3_CMDEF_NC&quot;
+preQC_3D$condition &lt;- &quot;diseased&quot;
+
+preQC_4H$sample &lt;- &quot;Exp4_CMHEF_NC&quot;
+preQC_4H$condition &lt;- &quot;healthy&quot;
+
+preQC_4D$sample &lt;- &quot;Exp4_CMDEF_NC&quot;
+preQC_4D$condition &lt;- &quot;diseased&quot;
+
+preQC_5H$sample &lt;- &quot;Exp5_CMHEF_NC&quot;
+preQC_5H$condition &lt;- &quot;healthy&quot;
+
+preQC_5D$sample &lt;- &quot;Exp5_CMDEF_NC&quot;
+preQC_5D$condition &lt;- &quot;diseased&quot;
+
+preQC_6H$sample &lt;- &quot;Exp6_CMHEF_NC&quot;
+preQC_6H$condition &lt;- &quot;healthy&quot;
+
+preQC_6D$sample &lt;- &quot;Exp6_CMDEF_NC&quot;
+preQC_6D$condition &lt;- &quot;diseased&quot;
+
+
+# Biological replicate metadata
+
+preQC_3H$replicate &lt;- &quot;Exp3&quot;
+preQC_3D$replicate &lt;- &quot;Exp3&quot;
+
+preQC_4H$replicate &lt;- &quot;Exp4&quot;
+preQC_4D$replicate &lt;- &quot;Exp4&quot;
+
+preQC_5H$replicate &lt;- &quot;Exp5&quot;
+preQC_5D$replicate &lt;- &quot;Exp5&quot;
+
+preQC_6H$replicate &lt;- &quot;Exp6&quot;
+preQC_6D$replicate &lt;- &quot;Exp6&quot;</code></pre>
+</div>
+<div id="preqc-plots" class="section level1">
+<h1>PreQC Plots</h1>
+<pre class="r"><code># Add mitochondrial percentage to all samples
+preQC_3H[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_3H, pattern = &quot;^MT-&quot;)
+preQC_3D[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_3D, pattern = &quot;^MT-&quot;)
+preQC_4H[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_4H, pattern = &quot;^MT-&quot;)
+preQC_4D[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_4D, pattern = &quot;^MT-&quot;)
+preQC_5H[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_5H, pattern = &quot;^MT-&quot;)
+preQC_5D[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_5D, pattern = &quot;^MT-&quot;)
+preQC_6H[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_6H, pattern = &quot;^MT-&quot;)
+preQC_6D[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(preQC_6D, pattern = &quot;^MT-&quot;)
+
+
+# Add ribosomal protein percentage to all samples
+preQC_3H[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_3H, pattern = &quot;^RP[SL]&quot;)
+preQC_3D[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_3D, pattern = &quot;^RP[SL]&quot;)
+preQC_4H[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_4H, pattern = &quot;^RP[SL]&quot;)
+preQC_4D[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_4D, pattern = &quot;^RP[SL]&quot;)
+preQC_5H[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_5H, pattern = &quot;^RP[SL]&quot;)
+preQC_5D[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_5D, pattern = &quot;^RP[SL]&quot;)
+preQC_6H[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_6H, pattern = &quot;^RP[SL]&quot;)
+preQC_6D[[&quot;percent.rp&quot;]] &lt;- PercentageFeatureSet(preQC_6D, pattern = &quot;^RP[SL]&quot;)
+
+
+
+# Merge all samples for QC visualization
+qc_combined &lt;- merge(
+  preQC_3H,
+  y = list(
+    preQC_3D,
+    preQC_4H,
+    preQC_4D,
+    preQC_5H,
+    preQC_5D,
+    preQC_6H,
+    preQC_6D
+  ),
+  add.cell.ids = c(
+    &quot;Exp3H&quot;,
+    &quot;Exp3D&quot;,
+    &quot;Exp4H&quot;,
+    &quot;Exp4D&quot;,
+    &quot;Exp5H&quot;,
+    &quot;Exp5D&quot;,
+    &quot;Exp6H&quot;,
+    &quot;Exp6D&quot;
+  ),
+  project = &quot;QC_compare&quot;
+)
+
+
+# Add abbreviated sample names
+qc_combined$sample_short &lt;- dplyr::recode(
+  qc_combined$sample,
+  &quot;Exp3_CMHEF_NC&quot; = &quot;3H&quot;,
+  &quot;Exp3_CMDEF_NC&quot; = &quot;3D&quot;,
+  &quot;Exp4_CMHEF_NC&quot; = &quot;4H&quot;,
+  &quot;Exp4_CMDEF_NC&quot; = &quot;4D&quot;,
+  &quot;Exp5_CMHEF_NC&quot; = &quot;5H&quot;,
+  &quot;Exp5_CMDEF_NC&quot; = &quot;5D&quot;,
+  &quot;Exp6_CMHEF_NC&quot; = &quot;6H&quot;,
+  &quot;Exp6_CMDEF_NC&quot; = &quot;6D&quot;
+)
+
+
+# Plot number of detected genes per nucleus
+VlnPlot(
+  qc_combined,
+  features = &quot;nFeature_RNA&quot;,
+  group.by = &quot;sample&quot;,
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle(&quot;nFeature_RNA&quot;) +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 5,
+      r = 5,
+      b = 50,
+      l = 5
+    )
+  )</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-4-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plot total RNA counts per nucleus
+VlnPlot(
+  qc_combined,
+  features = &quot;nCount_RNA&quot;,
+  group.by = &quot;sample&quot;,
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle(&quot;nCount_RNA&quot;) +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 5,
+      r = 5,
+      b = 50,
+      l = 5
+    )
+  )</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-4-2.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plot mitochondrial percentage
+VlnPlot(
+  qc_combined,
+  features = &quot;percent.mt&quot;,
+  group.by = &quot;sample&quot;,
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle(&quot;percent.mt&quot;) +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 10,
+      r = 10,
+      b = 20,
+      l = 40
+    )
+  )</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-4-3.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Plot ribosomal protein percentage
+VlnPlot(
+  qc_combined,
+  features = &quot;percent.rp&quot;,
+  group.by = &quot;sample&quot;,
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle(&quot;percent.rp&quot;) +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 10,
+      r = 10,
+      b = 20,
+      l = 40
+    )
+  )</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-4-4.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="doublet-removal" class="section level1">
+<h1>Doublet Removal</h1>
+<pre class="r"><code># Doublet removal 
+
+sample_list &lt;- list(
+  Exp3_CMHEF_NC = preQC_3H,
+  Exp3_CMDEF_NC = preQC_3D,
+  Exp4_CMHEF_NC = preQC_4H,
+  Exp4_CMDEF_NC = preQC_4D,
+  Exp5_CMHEF_NC = preQC_5H,
+  Exp5_CMDEF_NC = preQC_5D,
+  Exp6_CMHEF_NC = preQC_6H,
+  Exp6_CMDEF_NC = preQC_6D
+)
+
+
+# Run scDblFinder separately for each sample
+for (nm in names(sample_list)) {
+  
+  sce_obj &lt;- as.SingleCellExperiment(sample_list[[nm]])
+  
+  set.seed(123)
+  
+  sce_obj &lt;- scDblFinder(
+    sce_obj,
+    clusters = TRUE
+  )
+  
+  sample_list[[nm]]$scDblFinder.class &lt;-
+    sce_obj$scDblFinder.class
+  
+  sample_list[[nm]]$scDblFinder.score &lt;-
+    sce_obj$scDblFinder.score
+}</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty</code></pre>
+<pre><code>Warning: Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>9 clusters</code></pre>
+<pre><code>Creating ~4680 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 475 cells excluded from training.</code></pre>
+<pre><code>iter=1, 536 cells excluded from training.</code></pre>
+<pre><code>iter=2, 584 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.796</code></pre>
+<pre><code>590 (10.1%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty
+Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Warning in .checkSCE(sce, coerce = is.null(samples)): Some cells in `sce` have
+an extremely low read counts; note that these could trigger errors and might
+best be filtered out</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>10 clusters</code></pre>
+<pre><code>Creating ~5778 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 675 cells excluded from training.</code></pre>
+<pre><code>iter=1, 727 cells excluded from training.</code></pre>
+<pre><code>iter=2, 741 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.736</code></pre>
+<pre><code>804 (11.1%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty</code></pre>
+<pre><code>Warning: Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Warning in .checkSCE(sce, coerce = is.null(samples)): Some cells in `sce` have
+an extremely low read counts; note that these could trigger errors and might
+best be filtered out</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>9 clusters</code></pre>
+<pre><code>Creating ~2916 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 214 cells excluded from training.</code></pre>
+<pre><code>iter=1, 298 cells excluded from training.</code></pre>
+<pre><code>iter=2, 235 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.837</code></pre>
+<pre><code>257 (7.1%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty</code></pre>
+<pre><code>Warning: Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Warning in .checkSCE(sce, coerce = is.null(samples)): Some cells in `sce` have
+an extremely low read counts; note that these could trigger errors and might
+best be filtered out</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>11 clusters</code></pre>
+<pre><code>Creating ~4732 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 512 cells excluded from training.</code></pre>
+<pre><code>iter=1, 531 cells excluded from training.</code></pre>
+<pre><code>iter=2, 549 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.76</code></pre>
+<pre><code>582 (9.8%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty</code></pre>
+<pre><code>Warning: Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>9 clusters</code></pre>
+<pre><code>Creating ~4139 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 390 cells excluded from training.</code></pre>
+<pre><code>iter=1, 459 cells excluded from training.</code></pre>
+<pre><code>iter=2, 413 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.769</code></pre>
+<pre><code>448 (8.7%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty
+Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>11 clusters</code></pre>
+<pre><code>Creating ~4676 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 467 cells excluded from training.</code></pre>
+<pre><code>iter=1, 517 cells excluded from training.</code></pre>
+<pre><code>iter=2, 553 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.774</code></pre>
+<pre><code>576 (9.9%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty
+Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>8 clusters</code></pre>
+<pre><code>Creating ~4432 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 431 cells excluded from training.</code></pre>
+<pre><code>iter=1, 462 cells excluded from training.</code></pre>
+<pre><code>iter=2, 483 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.721</code></pre>
+<pre><code>502 (9.1%) doublets called</code></pre>
+<pre><code>Warning: Layer &#39;data&#39; is empty
+Layer &#39;scale.data&#39; is empty</code></pre>
+<pre><code>Clustering cells...</code></pre>
+<pre><code>9 clusters</code></pre>
+<pre><code>Creating ~4308 artificial doublets...</code></pre>
+<pre><code>Dimensional reduction</code></pre>
+<pre><code>Evaluating kNN...</code></pre>
+<pre><code>Training model...</code></pre>
+<pre><code>iter=0, 415 cells excluded from training.</code></pre>
+<pre><code>iter=1, 442 cells excluded from training.</code></pre>
+<pre><code>iter=2, 451 cells excluded from training.</code></pre>
+<pre><code>Threshold found:0.785</code></pre>
+<pre><code>460 (8.5%) doublets called</code></pre>
+<pre class="r"><code># Merge all samples before doublet removal
+preQC_combined &lt;- merge(
+  x = sample_list[[1]],
+  y = sample_list[-1],
+  add.cell.ids = names(sample_list),
+  project = &quot;preQC_combined&quot;
+)
+
+
+# Set the order of doublet classifications
+preQC_combined$scDblFinder.class &lt;- factor(
+  preQC_combined$scDblFinder.class,
+  levels = c(&quot;singlet&quot;, &quot;doublet&quot;)
+)
+
+
+# Compare QC metrics between singlets and doublets
+VlnPlot(
+  preQC_combined,
+  features = c(
+    &quot;nCount_RNA&quot;,
+    &quot;nFeature_RNA&quot;,
+    &quot;percent.mt&quot;
+  ),
+  group.by = &quot;sample&quot;,
+  split.by = &quot;scDblFinder.class&quot;,
+  layer = &quot;counts&quot;,
+  pt.size = 0,
+  ncol = 3
+) &amp; theme(
+  legend.position = &quot;right&quot;,
+  axis.text.x = element_text(
+    angle = 45,
+    hjust = 1
+  )
+)</code></pre>
+<pre><code>The default behaviour of split.by has changed.
+Separate violin plots are now plotted side-by-side.
+To restore the old behaviour of a single split violin,
+set split.plot = TRUE.
+      
+This message will be shown once per session.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-5-1.png" alt="" width="4200" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Retain only nuclei classified as singlets
+sample_list_nodoublets &lt;- lapply(
+  sample_list,
+  function(x) {
+    subset(
+      x = x,
+      subset = scDblFinder.class == &quot;singlet&quot;
+    )
+  }
+)
+
+
+# Merge all samples after doublet removal
+preQC_nodoublets_combined &lt;- merge(
+  x = sample_list_nodoublets[[1]],
+  y = sample_list_nodoublets[-1],
+  add.cell.ids = names(sample_list_nodoublets),
+  project = &quot;preQC_nodoublets_combined&quot;
+)
+
+
+# Visualize QC metrics after doublet removal
+VlnPlot(
+  preQC_nodoublets_combined,
+  features = c(
+    &quot;nFeature_RNA&quot;,
+    &quot;nCount_RNA&quot;,
+    &quot;percent.mt&quot;
+  ),
+  group.by = &quot;sample&quot;,
+  layer = &quot;counts&quot;,
+  pt.size = 0,
+  ncol = 3
+) &amp; theme(
+  axis.text.x = element_text(
+    angle = 45,
+    hjust = 1
+  )
+)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-5-2.png" alt="" width="4200" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Display doublet classifications for each sample
+lapply(
+  sample_list,
+  function(x) {
+    table(x$scDblFinder.class)
+  }
+)</code></pre>
+<pre><code>$Exp3_CMHEF_NC
+
+singlet doublet 
+   5260     590 
+
+$Exp3_CMDEF_NC
+
+singlet doublet 
+   6418     804 
+
+$Exp4_CMHEF_NC
+
+singlet doublet 
+   3388     257 
+
+$Exp4_CMDEF_NC
+
+singlet doublet 
+   5332     582 
+
+$Exp5_CMHEF_NC
+
+singlet doublet 
+   4725     448 
+
+$Exp5_CMDEF_NC
+
+singlet doublet 
+   5269     576 
+
+$Exp6_CMHEF_NC
+
+singlet doublet 
+   5038     502 
+
+$Exp6_CMDEF_NC
+
+singlet doublet 
+   4924     460 </code></pre>
+<pre class="r"><code># Create a summary table of singlets and doublets
+doublet_table &lt;- do.call(
+  rbind,
+  lapply(
+    names(sample_list),
+    function(nm) {
+      
+      tab &lt;- table(
+        sample_list[[nm]]$scDblFinder.class
+      )
+      
+      singlet_count &lt;- if (
+        &quot;singlet&quot; %in% names(tab)
+      ) {
+        as.numeric(tab[&quot;singlet&quot;])
+      } else {
+        0
+      }
+      
+      doublet_count &lt;- if (
+        &quot;doublet&quot; %in% names(tab)
+      ) {
+        as.numeric(tab[&quot;doublet&quot;])
+      } else {
+        0
+      }
+      
+      total_count &lt;- sum(tab)
+      
+      data.frame(
+        Sample = nm,
+        Singlet = singlet_count,
+        Doublet = doublet_count,
+        Total = total_count,
+        Doublet_percent = round(
+          100 * doublet_count / total_count,
+          1
+        )
+      )
+    }
+  )
+)
+
+
+# View doublet summary
+doublet_table</code></pre>
+<pre><code>         Sample Singlet Doublet Total Doublet_percent
+1 Exp3_CMHEF_NC    5260     590  5850            10.1
+2 Exp3_CMDEF_NC    6418     804  7222            11.1
+3 Exp4_CMHEF_NC    3388     257  3645             7.1
+4 Exp4_CMDEF_NC    5332     582  5914             9.8
+5 Exp5_CMHEF_NC    4725     448  5173             8.7
+6 Exp5_CMDEF_NC    5269     576  5845             9.9
+7 Exp6_CMHEF_NC    5038     502  5540             9.1
+8 Exp6_CMDEF_NC    4924     460  5384             8.5</code></pre>
+<pre class="r"><code>#some checks after doublet removal to be sure that the seurat objects are correct
+lapply(sample_list, function(x) table(x$scDblFinder.class))</code></pre>
+<pre><code>$Exp3_CMHEF_NC
+
+singlet doublet 
+   5260     590 
+
+$Exp3_CMDEF_NC
+
+singlet doublet 
+   6418     804 
+
+$Exp4_CMHEF_NC
+
+singlet doublet 
+   3388     257 
+
+$Exp4_CMDEF_NC
+
+singlet doublet 
+   5332     582 
+
+$Exp5_CMHEF_NC
+
+singlet doublet 
+   4725     448 
+
+$Exp5_CMDEF_NC
+
+singlet doublet 
+   5269     576 
+
+$Exp6_CMHEF_NC
+
+singlet doublet 
+   5038     502 
+
+$Exp6_CMDEF_NC
+
+singlet doublet 
+   4924     460 </code></pre>
+<pre class="r"><code>lapply(sample_list_nodoublets, function(x) table(x$scDblFinder.class))</code></pre>
+<pre><code>$Exp3_CMHEF_NC
+
+singlet doublet 
+   5260       0 
+
+$Exp3_CMDEF_NC
+
+singlet doublet 
+   6418       0 
+
+$Exp4_CMHEF_NC
+
+singlet doublet 
+   3388       0 
+
+$Exp4_CMDEF_NC
+
+singlet doublet 
+   5332       0 
+
+$Exp5_CMHEF_NC
+
+singlet doublet 
+   4725       0 
+
+$Exp5_CMDEF_NC
+
+singlet doublet 
+   5269       0 
+
+$Exp6_CMHEF_NC
+
+singlet doublet 
+   5038       0 
+
+$Exp6_CMDEF_NC
+
+singlet doublet 
+   4924       0 </code></pre>
+<pre class="r"><code>sapply(sample_list, ncol)</code></pre>
+<pre><code>Exp3_CMHEF_NC Exp3_CMDEF_NC Exp4_CMHEF_NC Exp4_CMDEF_NC Exp5_CMHEF_NC 
+         5850          7222          3645          5914          5173 
+Exp5_CMDEF_NC Exp6_CMHEF_NC Exp6_CMDEF_NC 
+         5845          5540          5384 </code></pre>
+<pre class="r"><code>sapply(sample_list_nodoublets, ncol)</code></pre>
+<pre><code>Exp3_CMHEF_NC Exp3_CMDEF_NC Exp4_CMHEF_NC Exp4_CMDEF_NC Exp5_CMHEF_NC 
+         5260          6418          3388          5332          4725 
+Exp5_CMDEF_NC Exp6_CMHEF_NC Exp6_CMDEF_NC 
+         5269          5038          4924 </code></pre>
+</div>
+<div id="postqc-plots" class="section level1">
+<h1>PostQC plots</h1>
+<pre class="r"><code>#use QC parameters as when I looked at the samples on their own as I did before
+postQC_3H &lt;- subset(sample_list_nodoublets$Exp3_CMHEF_NC, subset = nFeature_RNA &gt; 600 &amp; percent.mt &lt; 3)
+postQC_3D &lt;- subset(sample_list_nodoublets$Exp3_CMDEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+postQC_4H &lt;- subset(sample_list_nodoublets$Exp4_CMHEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+postQC_4D &lt;- subset(sample_list_nodoublets$Exp4_CMDEF_NC, subset = nFeature_RNA &gt; 900 &amp; percent.mt &lt; 3)
+postQC_5H &lt;- subset(sample_list_nodoublets$Exp5_CMHEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+postQC_5D &lt;- subset(sample_list_nodoublets$Exp5_CMDEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+postQC_6H &lt;- subset(sample_list_nodoublets$Exp6_CMHEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+postQC_6D &lt;- subset(sample_list_nodoublets$Exp6_CMDEF_NC, subset = nFeature_RNA &gt; 800 &amp; percent.mt &lt; 3)
+
+Post_QC_plot &lt;- merge(
+  postQC_3H,
+  y = list(postQC_3D, postQC_4H, postQC_4D, postQC_5H, postQC_5D, postQC_6H, postQC_6D),
+  add.cell.ids = c(&quot;Exp3H&quot;, &quot;Exp3D&quot;, &quot;Exp4H&quot;, &quot;Exp4D&quot;, &quot;Exp5H&quot;, &quot;Exp5D&quot;, &quot;Exp6H&quot;, &quot;Exp6D&quot;),
+  project = &quot;Post_QC&quot;
+)
+
+VlnPlot(
+  Post_QC_plot,
+  features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;, &quot;percent.rp&quot;),
+  group.by = &quot;sample&quot;,
+  ncol = 4,
+  pt.size = 0
+) &amp; theme(
+  axis.text.x = element_text(angle = 45, hjust = 1)
+)</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-7-1.png" alt="" width="4200" style="display: block; margin: auto;" /></p>
+</div>
+<div id="normalization" class="section level1">
+<h1>Normalization</h1>
+<pre class="r"><code>#normalize, each sample individually, and new seed
+set.seed(124)
+# normalization (per sample, before Harmony)
+
+options(future.globals.maxSize = 2 * 1024^3)  # 2 GB
+
+Norm_postQC_3H &lt;- SCTransform(
+  postQC_3H,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 25559 by 5100</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 5000 cells</code></pre>
+<pre><code>Found 49 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 25559 genes</code></pre>
+<pre><code>Computing corrected count matrix for 25559 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 27.07158 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_3D &lt;- SCTransform(
+  postQC_3D,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 25546 by 6019</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 5000 cells</code></pre>
+<pre><code>Found 101 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 25546 genes</code></pre>
+<pre><code>Computing corrected count matrix for 25546 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 27.73899 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_4H &lt;- SCTransform(
+  postQC_4H,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 24000 by 3175</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 3175 cells</code></pre>
+<pre><code>Found 36 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 24000 genes</code></pre>
+<pre><code>Computing corrected count matrix for 24000 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 15.74395 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_4D &lt;- SCTransform(
+  postQC_4D,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 25123 by 4876</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 4876 cells</code></pre>
+<pre><code>Found 33 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 25123 genes</code></pre>
+<pre><code>Computing corrected count matrix for 25123 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 23.11612 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_5H &lt;- SCTransform(
+  postQC_5H,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 24044 by 4394</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 4394 cells</code></pre>
+<pre><code>Found 49 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 24044 genes</code></pre>
+<pre><code>Computing corrected count matrix for 24044 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 20.41259 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_5D &lt;- SCTransform(
+  postQC_5D,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 24525 by 4882</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 4882 cells</code></pre>
+<pre><code>Found 41 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 24525 genes</code></pre>
+<pre><code>Computing corrected count matrix for 24525 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 22.70352 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_6H &lt;- SCTransform(
+  postQC_6H,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 24490 by 4609</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 4609 cells</code></pre>
+<pre><code>Found 39 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 24490 genes</code></pre>
+<pre><code>Computing corrected count matrix for 24490 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 21.32756 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>Norm_postQC_6D &lt;- SCTransform(
+  postQC_6D,
+  assay = &quot;RNA&quot;,
+  vst.flavor = &quot;v2&quot;,
+  vars.to.regress = &quot;percent.mt&quot;
+)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 24453 by 4559</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 4559 cells</code></pre>
+<pre><code>Found 52 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 24453 genes</code></pre>
+<pre><code>Computing corrected count matrix for 24453 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 21.6188 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code># Merge the SCT-normalized objects
+Norm_Post_QC &lt;- merge(
+  x = Norm_postQC_3H,
+  y = list(
+    Norm_postQC_3D,
+    Norm_postQC_4H,
+    Norm_postQC_4D,
+    Norm_postQC_5H,
+    Norm_postQC_5D,
+    Norm_postQC_6H,
+    Norm_postQC_6D
+  ),
+  add.cell.ids = c(&quot;3H&quot;, &quot;3D&quot;, &quot;4H&quot;, &quot;4D&quot;, &quot;5H&quot;, &quot;5D&quot;, &quot;6H&quot;, &quot;6D&quot;),
+  project = &quot;Post_QC&quot;
+)
+
+# Use SCT assay for downstream PCA
+DefaultAssay(Norm_Post_QC) &lt;- &quot;SCT&quot;</code></pre>
+</div>
+<div id="pca" class="section level1">
+<h1>PCA</h1>
+<pre class="r"><code>#linear dimensionality reduction
+set.seed(125)
+# choose one shared variable-feature set across the 8 SCT-normalized samples
+features &lt;- SelectIntegrationFeatures(
+  object.list = list(
+    Norm_postQC_3H,
+    Norm_postQC_3D,
+    Norm_postQC_4H,
+    Norm_postQC_4D,
+    Norm_postQC_5H,
+    Norm_postQC_5D,
+    Norm_postQC_6H,
+    Norm_postQC_6D
+  ),
+  nfeatures = 3000
+)
+
+# assign those shared features to the merged object
+VariableFeatures(Norm_Post_QC) &lt;- features
+
+# make sure PCA uses the SCT assay
+DefaultAssay(Norm_Post_QC) &lt;- &quot;SCT&quot;
+
+# now run PCA
+Norm_Post_QC &lt;- RunPCA(
+  Norm_Post_QC,
+  features = VariableFeatures(Norm_Post_QC)
+)</code></pre>
+<pre><code>PC_ 1 
+Positive:  SLIT2, BRINP3, FHL2, KCNIP4, ANKRD1, MID1, SLC8A1, CACNB2, PCDH7, TECRL 
+       CHRM2, FBN2, DMD, CTNNA3, KIF26B, EMC10, RYR2, FHOD3, TNNI3K, FGF12 
+       TSHZ2, PRICKLE1, MYOM1, LRRTM4, MLIP, ERBB4, CMYA5, PALLD, ERC2, CORIN 
+Negative:  COL3A1, COL1A2, COL6A3, COL1A1, FN1, EBF1, SPARC, COL6A1, COL6A2, IGFBP3 
+       COL5A2, SULF1, PDGFRB, CCDC102B, TFPI, VIM, MEG8, POSTN, S100A6, VCAN 
+       EPS8, PDE7B, S100A4, CSGALNACT1, IGFBP4, TGFBI, TRPS1, COL5A3, BNC2, FBN1 
+PC_ 2 
+Positive:  COL1A1, COL1A2, COL3A1, COL6A1, MYL7, COL6A3, GAPDH, ACTC1, IGFBP3, COL6A2 
+       ANKRD1, S100A4, H19, EEF1A1, RPLP1, TPT1, NPPA, MIF, PDGFRB, TNNC1 
+       SULF1, RPL41, TNNI1, COL5A2, CD63, SERF2, NPPB, RPS8, CRYAB, MYL2 
+Negative:  MECOM, CALCRL, DOCK4, TCF4, LDB2, ADGRL4, PLEKHG1, PECAM1, CASC15, EMCN 
+       ELMO1, FLT1, RAPGEF5, ARHGEF28, CDH13, ERG, FLI1, RHOJ, APBB2, RASGRF2 
+       RASGRP3, ADGRF5, NOX4, VWF, ANO2, GRB10, EFNB2, PRKCH, ADAMTS9, VAV3 
+PC_ 3 
+Positive:  COL6A3, COL3A1, COL1A2, EBF1, CCDC102B, PDGFRB, TRPS1, COL1A1, PRKG1, SULF1 
+       DLC1, COL6A2, COL5A2, FN1, MEG8, RUNX1, IGFBP3, COL6A1, EPS8, PDE3A 
+       MEG3, GLIS3, VCAN, COL5A3, SOX5, PDGFRA, PLEKHH2, PRR16, CYP1B1, KCNE4 
+Negative:  MYL7, ACTC1, TNNC1, NPPA, GAPDH, TNNI1, FABP3, MYL2, ATP5F1E, HSPB7 
+       ATP5MC3, ANKRD1, HSPB1, CSRP3, RPLP1, UQCRB, CRYAB, COX7C, MIF, EEF1A1 
+       NPPB, SLC25A4, SRP14, ACTA1, COX8A, KRT8, TPT1, RPS28, H19, RPL41 
+PC_ 4 
+Positive:  DIAPH3, TOP2A, CENPF, ANLN, TPX2, ASPM, SMC4, MIR924HG, KIF20B, CIT 
+       CENPE, NUSAP1, NUF2, BUB1, KIF18A, KNL1, BRIP1, ENSG00000290886, CEP128, APOLD1 
+       KIF4A, BUB1B, POLQ, ECT2, KIF14, NDC80, NCAPG, PRC1, MKI67, DLGAP5 
+Negative:  NPPB, MYOM1, LRRTM4, SLIT2, ADAMTS9-AS2, MYL3, ACTC1, GRB10, TTN, ENSG00000291159 
+       CSRP3, PTCHD4, EGLN3, SGIP1, CNTN5, PGK1, HSPB7, TNNI1, SLC16A1, COL13A1 
+       NAV3, VIPR2, DNAH11, DTNA, VWC2, BNIP3, HIF1A-AS3, TNNC1, MYL7, SLC25A4 
+PC_ 5 
+Positive:  BRINP3, SLIT2, HTR4, GRAMD1B, COL14A1, ENSG00000282917, KIF26B, DLGAP1, EPHA4, PBX1 
+       ADGRL2, MGAT4C, CNTN5, PLXNA4, CSMD1, NOS1AP, FHL2, MOXD1, ROR2, MAN1A1 
+       KLHL32, DAB1, RAP1GAP2, IL1RAPL1, CDH12, CHRNA7, TECRL, FREM1, TRDN-AS1, RASSF8 
+Negative:  ANKRD1, GBE1, LINC01411, PCDH7, MYOM1, CALD1, FLNB, LRRC8B, LRRFIP1, SLC16A1 
+       KLF7, DTNA, SORBS1, MYOF, MID1, SAMD4A, IL1RAP, SV2C, STAT4, CYTOR 
+       ENSG00000291159, DGKI, ROR1, NPPB, DDAH1, LIMS1, NEXN, COL13A1, PDLIM3, TNNI3K </code></pre>
+</div>
+<div id="visualize-pca" class="section level1">
+<h1>Visualize PCA</h1>
+<pre class="r"><code>#visualizations of the PCA
+VizDimLoadings(Norm_Post_QC, dims = 1:2, reduction = &quot;pca&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimPlot(Norm_Post_QC, reduction = &quot;pca&quot;) + NoLegend()</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimHeatmap(Norm_Post_QC, dims = 1, cells = 500, balanced = TRUE)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-3.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimHeatmap(Norm_Post_QC, dims = 1:15, cells = 500, balanced = TRUE)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-4.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ElbowPlot(Norm_Post_QC)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-5.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ElbowPlot(Norm_Post_QC, ndims = 50) +
+  scale_y_continuous(breaks = seq(0, 50, by = 2))</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-10-6.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pre-harmony-umap" class="section level1">
+<h1>pre-Harmony UMAP</h1>
+<pre class="r"><code>set.seed(126)
+#before integration
+# pre-Harmony UMAP
+Norm_Post_QC &lt;- RunUMAP(
+  Norm_Post_QC,
+  reduction = &quot;pca&quot;,
+  dims = 1:40,
+  reduction.name = &quot;umap.pca&quot;
+)</code></pre>
+<pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
+This message will be shown once per session</code></pre>
+<pre><code>16:07:04 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>16:07:04 Read 37614 rows and found 40 numeric columns</code></pre>
+<pre><code>16:07:04 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>16:07:04 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
+<pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
+<pre><code>**************************************************|
+16:07:09 Writing NN index file to temp file /tmp/Rtmpri2Ehj/file235d55522de6b
+16:07:09 Searching Annoy index using 1 thread, search_k = 3000
+16:07:24 Annoy recall = 100%
+16:07:25 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+16:07:28 Initializing from normalized Laplacian + noise (using RSpectra)
+16:07:28 Commencing optimization for 200 epochs, with 1627260 positive edges
+16:07:28 Using rng type: pcg
+16:07:44 Optimization finished</code></pre>
+<pre class="r"><code>DimPlot(Norm_Post_QC, reduction = &quot;umap.pca&quot;, group.by = &quot;sample&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimPlot(Norm_Post_QC, reduction = &quot;umap.pca&quot;, group.by = &quot;condition&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-11-2.png" alt="" width="672" style="display: block; margin: auto;" />
+# post-Harmony UMAP</p>
+<pre class="r"><code>#do harmony and after harmony umap
+set.seed(127)
+Norm_Post_QC &lt;- RunHarmony(
+  object = Norm_Post_QC,
+  group.by.vars = &quot;sample&quot;,
+  reduction.use = &quot;pca&quot;,
+  dims.use=1:40,
+  plot_convergence = TRUE
+)</code></pre>
+<pre><code>Transposing data matrix</code></pre>
+<pre><code>Using automatic lambda estimation</code></pre>
+<pre><code>Thetas: 2</code></pre>
+<pre><code>Initializing state using k-means centroids initialization</code></pre>
+<pre><code>Initializing centroids</code></pre>
+<pre><code>Harmony 1/10</code></pre>
+<pre><code>Harmony converged after 1 iterations</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-12-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># post-Harmony UMAP
+Norm_Post_QC &lt;- RunUMAP(
+  Norm_Post_QC,
+  reduction = &quot;harmony&quot;,
+  dims = 1:40,
+  reduction.name = &quot;umap.harmony&quot;
+)</code></pre>
+<pre><code>16:07:50 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>16:07:50 Read 37614 rows and found 40 numeric columns</code></pre>
+<pre><code>16:07:50 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>16:07:50 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
+<pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
+<pre><code>**************************************************|
+16:07:55 Writing NN index file to temp file /tmp/Rtmpri2Ehj/file235d53a1ec3e8
+16:07:55 Searching Annoy index using 1 thread, search_k = 3000
+16:08:10 Annoy recall = 100%
+16:08:11 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+16:08:13 Initializing from normalized Laplacian + noise (using RSpectra)
+16:08:14 Commencing optimization for 200 epochs, with 1626228 positive edges
+16:08:14 Using rng type: pcg
+16:08:30 Optimization finished</code></pre>
+<pre class="r"><code>DimPlot(Norm_Post_QC, reduction = &quot;umap.harmony&quot;, group.by = &quot;sample&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-12-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimPlot(Norm_Post_QC, reduction = &quot;umap.harmony&quot;, group.by = &quot;condition&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-12-3.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="clustree" class="section level1">
+<h1>Clustree</h1>
+<pre class="r"><code>set.seed(128)
+# clustering on Harmony
+Norm_Post_QC &lt;- FindNeighbors(
+  Norm_Post_QC,
+  reduction = &quot;harmony&quot;,
+  dims = 1:40
+)</code></pre>
+<pre><code>Computing nearest neighbor graph</code></pre>
+<pre><code>Computing SNN</code></pre>
+<pre class="r"><code>#figure out which resolution I want/need
+Norm_Post_QC &lt;- FindClusters(Norm_Post_QC, resolution = seq(0.1, 0.8, by=0.1))</code></pre>
+<pre><code>Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9535
+Number of communities: 7
+Elapsed time: 9 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9227
+Number of communities: 9
+Elapsed time: 9 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9067
+Number of communities: 11
+Elapsed time: 10 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8904
+Number of communities: 13
+Elapsed time: 9 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8752
+Number of communities: 14
+Elapsed time: 10 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8632
+Number of communities: 15
+Elapsed time: 9 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8537
+Number of communities: 17
+Elapsed time: 8 seconds
+Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8461
+Number of communities: 19
+Elapsed time: 9 seconds</code></pre>
+<pre class="r"><code>clustree::clustree(Norm_Post_QC@meta.data[,grep(&quot;SCT_snn_res&quot;, colnames(Norm_Post_QC@meta.data))],
+                   prefix = &quot;SCT_snn_res.&quot;)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-13-1.png" alt="" width="3600" style="display: block; margin: auto;" /></p>
+</div>
+<div id="chose-a-resolution-for-umap" class="section level1">
+<h1>Chose a resolution for UMAP</h1>
+<pre class="r"><code>set.seed(129)
+Norm_Post_QC_0.3 &lt;- FindClusters(
+  Norm_Post_QC,
+  resolution = 0.3
+)</code></pre>
+<pre><code>Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 37614
+Number of edges: 1189525
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9067
+Number of communities: 11
+Elapsed time: 10 seconds</code></pre>
+</div>
+<div id="umap-resolution-0.3" class="section level1">
+<h1>UMAP Resolution 0.3</h1>
+<pre class="r"><code>set.seed(130)
+#umap, dim 1.40 and resolution 0.3
+DimPlot(
+  Norm_Post_QC_0.3,
+  reduction = &quot;umap.harmony&quot;,
+  group.by = &quot;seurat_clusters&quot;,
+  label = TRUE,
+  repel = TRUE
+)</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-15-1.png" alt="" width="3000" style="display: block; margin: auto;" /></p>
+</div>
+<div id="qc-on-clusters-0.3" class="section level1">
+<h1>QC on Clusters 0.3</h1>
+<pre class="r"><code>VlnPlot(Norm_Post_QC_0.3, features = c(&quot;nCount_RNA&quot;, &quot;nFeature_RNA&quot;, &quot;percent.mt&quot;, &quot;percent.rp&quot;, &quot;scDblFinder.score&quot;), ncol = 2, pt.size = 0) + theme(axis.title.x = element_blank())</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-16-1.png" alt="" width="3000" style="display: block; margin: auto;" />
+# Canonical Markers 0.3</p>
+<pre class="r"><code>canonical_markers &lt;- c(
+  &quot;TNNT2&quot;, &quot;ACTC1&quot;, &quot;MYH6&quot;, &quot;MYH7&quot;, &quot;TNNI3&quot;, &quot;RYR2&quot;, &quot;PLN&quot;,
+  &quot;DCN&quot;, &quot;LUM&quot;, &quot;COL1A1&quot;, &quot;COL1A2&quot;, &quot;FBLN1&quot;, &quot;COL3A1&quot;,
+  &quot;PECAM1&quot;, &quot;CDH5&quot;, &quot;KDR&quot;, &quot;EMCN&quot;, &quot;VWF&quot;, &quot;EGFL7&quot;, &quot;FLT1&quot;
+)
+
+DotPlot(Norm_Post_QC_0.3, features = canonical_markers) + RotatedAxis()</code></pre>
+<p><img src="figure/CMHEF_vs_CMDEF_exp3_6__first_QC.Rmd/unnamed-chunk-17-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="export-seurat-object" class="section level1">
+<h1>Export Seurat Object</h1>
+<pre class="r"><code># Create the output folder if it does not already exist
+dir.create(
+  here::here(&quot;output&quot;),
+  showWarnings = FALSE,
+  recursive = TRUE
+)
+
+# Save the complete initial clustered object
+saveRDS(
+  Norm_Post_QC_0.3,
+  file = here::here(
+    &quot;output&quot;,
+    &quot;snRNAseq_initial_QC_and_Clustering.rds&quot;
+  )
+)
+
+#Check that it saved correctly
+checkpoint_path &lt;- here::here(
+  &quot;output&quot;,
+  &quot;snRNAseq_initial_clustered_before_iterative_QC.rds&quot;
+)
+
+file.exists(checkpoint_path)</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<pre class="r"><code>file.info(checkpoint_path)$size / 1024^3</code></pre>
+<pre><code>[1] NA</code></pre>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>So we have problematic clusters: cluster number 3 (CM) has a high
+scDblFinder score. Cluster 9 has high percentages of mitochondrial genes
+and ribosomal proteins (CM), it also has relatively low features and
+counts. Cluster 7 has low features and counts and is positve for ECs and
+fibroblasts. At this point I will save the Seurat Object, do further
+checks on the three problematic clusters, possibly remove some and redo
+QC.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.5.2 (2025-10-31)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 24.04.3 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices datasets  utils     methods  
+[8] base     
+
+other attached packages:
+ [1] future_1.70.0               presto_1.0.0               
+ [3] data.table_1.18.4           clustree_0.5.1             
+ [5] ggraph_2.2.2                harmony_2.0.5              
+ [7] Rcpp_1.1.2                  scCustomize_3.3.0          
+ [9] sctransform_0.4.3           Seurat_5.5.1               
+[11] SeuratObject_5.4.0          sp_2.2-1                   
+[13] here_1.0.2                  rhdf5_2.54.1               
+[15] scDblFinder_1.24.10         SingleCellExperiment_1.32.0
+[17] SummarizedExperiment_1.40.0 Biobase_2.70.0             
+[19] GenomicRanges_1.62.1        Seqinfo_1.0.0              
+[21] IRanges_2.44.0              S4Vectors_0.48.1           
+[23] BiocGenerics_0.56.0         generics_0.1.4             
+[25] MatrixGenerics_1.22.0       matrixStats_1.5.0          
+[27] limma_3.66.0                gridExtra_2.3.1            
+[29] UpSetR_1.4.1                RColorBrewer_1.1-3         
+[31] pheatmap_1.0.13             lubridate_1.9.5            
+[33] forcats_1.0.1               stringr_1.6.0              
+[35] dplyr_1.2.1                 purrr_1.2.2                
+[37] readr_2.2.0                 tidyr_1.3.2                
+[39] tibble_3.3.1                ggplot2_4.0.3              
+[41] tidyverse_2.0.0             broom_1.0.13               
+[43] MuMIn_1.48.19               MASS_7.3-66                
+[45] workflowr_1.7.2            
+
+loaded via a namespace (and not attached):
+  [1] fs_2.1.0                  spatstat.sparse_3.2-0    
+  [3] bitops_1.0-9              httr_1.4.8               
+  [5] tools_4.5.2               backports_1.5.1          
+  [7] R6_2.6.1                  uwot_0.2.4               
+  [9] lazyeval_0.2.3            rhdf5filters_1.22.0      
+ [11] withr_3.0.3               progressr_1.0.0          
+ [13] cli_3.6.6                 spatstat.explore_3.8-1   
+ [15] fastDummies_1.7.6         labeling_0.4.3           
+ [17] sass_0.4.10               S7_0.2.2                 
+ [19] spatstat.data_3.1-9       ggridges_0.5.7           
+ [21] pbapply_1.7-4             Rsamtools_2.26.0         
+ [23] scater_1.38.1             parallelly_1.48.0        
+ [25] mcprogress_0.1.1          rstudioapi_0.19.0        
+ [27] shape_1.4.6.1             BiocIO_1.20.0            
+ [29] spatstat.random_3.5-0     ica_1.0-3                
+ [31] Matrix_1.7-4              ggbeeswarm_0.7.3         
+ [33] abind_1.4-8               lifecycle_1.0.5          
+ [35] whisker_0.4.1             yaml_2.3.12              
+ [37] edgeR_4.8.2               snakecase_0.11.1         
+ [39] glmGamPoi_1.22.0          SparseArray_1.10.10      
+ [41] Rtsne_0.17                paletteer_1.7.0          
+ [43] grid_4.5.2                promises_1.5.0           
+ [45] dqrng_0.4.1               crayon_1.5.3             
+ [47] miniUI_0.1.2              lattice_0.22-7           
+ [49] beachmat_2.26.0           cowplot_1.2.0            
+ [51] cigarillo_1.0.0           pillar_1.11.1            
+ [53] knitr_1.51                metapod_1.18.0           
+ [55] rjson_0.2.23              xgboost_3.2.1.1          
+ [57] future.apply_1.20.2       codetools_0.2-20         
+ [59] glue_1.8.1                getPass_0.2-4            
+ [61] spatstat.univar_3.2-0     vctrs_0.7.3              
+ [63] png_0.1-9                 spam_2.11-4              
+ [65] gtable_0.3.6              rematch2_2.1.2           
+ [67] cachem_1.1.0              xfun_0.60                
+ [69] S4Arrays_1.10.1           mime_0.13                
+ [71] tidygraph_1.3.1           survival_3.8-3           
+ [73] statmod_1.5.2             bluster_1.20.0           
+ [75] fitdistrplus_1.2-6        ROCR_1.0-12              
+ [77] nlme_3.1-168              bit64_4.8.2              
+ [79] RcppAnnoy_0.0.23          GenomeInfoDb_1.46.2      
+ [81] rprojroot_2.1.1           bslib_0.11.0             
+ [83] irlba_2.3.7               vipor_0.4.7              
+ [85] KernSmooth_2.23-26        otel_0.2.0               
+ [87] colorspace_2.1-3          ggrastr_1.0.2            
+ [89] tidyselect_1.2.1          processx_3.9.0           
+ [91] bit_4.6.0                 compiler_4.5.2           
+ [93] curl_7.1.0                git2r_0.36.2             
+ [95] BiocNeighbors_2.4.0       hdf5r_1.3.12             
+ [97] DelayedArray_0.36.1       plotly_4.12.0            
+ [99] rtracklayer_1.70.1        checkmate_2.3.4          
+[101] scales_1.4.0              lmtest_0.9-40            
+[103] callr_3.8.0               goftest_1.2-3            
+[105] digest_0.6.39             spatstat.utils_3.2-4     
+[107] rmarkdown_2.31            RhpcBLASctl_0.23-42      
+[109] XVector_0.50.0            htmltools_0.5.9          
+[111] pkgconfig_2.0.3           sparseMatrixStats_1.22.0 
+[113] fastmap_1.2.0             GlobalOptions_0.1.4      
+[115] rlang_1.3.0               htmlwidgets_1.6.4        
+[117] UCSC.utils_1.6.1          DelayedMatrixStats_1.32.0
+[119] shiny_1.14.0              farver_2.1.2             
+[121] jquerylib_0.1.4           zoo_1.8-15               
+[123] jsonlite_2.0.0            BiocParallel_1.44.0      
+[125] BiocSingular_1.26.1       RCurl_1.98-1.19          
+[127] magrittr_2.0.5            scuttle_1.20.0           
+[129] dotCall64_1.2             patchwork_1.3.2          
+[131] Rhdf5lib_1.32.0           viridis_0.6.5            
+[133] reticulate_1.46.0         stringi_1.8.7            
+[135] plyr_1.8.9                parallel_4.5.2           
+[137] listenv_1.0.0             ggrepel_0.9.8            
+[139] deldir_2.0-4              graphlayouts_1.2.4       
+[141] Biostrings_2.78.0         splines_4.5.2            
+[143] tensor_1.5.1              circlize_0.4.18          
+[145] hms_1.1.4                 locfit_1.5-9.12          
+[147] ps_1.9.3                  igraph_2.3.3             
+[149] spatstat.geom_3.8-1       RcppHNSW_0.7.0           
+[151] reshape2_1.4.5            ScaledMatrix_1.18.0      
+[153] XML_3.99-0.23             evaluate_1.0.5           
+[155] scran_1.38.1              renv_1.2.3               
+[157] ggprism_1.0.7             tweenr_2.0.3             
+[159] tzdb_0.5.0                httpuv_1.6.17            
+[161] polyclip_1.10-7           RANN_2.6.2               
+[163] scattermore_1.2           ggforce_0.5.0            
+[165] janitor_2.2.1             rsvd_1.0.5               
+[167] xtable_1.8-8              restfulr_0.0.17          
+[169] RSpectra_0.16-2           later_1.4.8              
+[171] viridisLite_0.4.3         memoise_2.0.1            
+[173] beeswarm_0.4.0            GenomicAlignments_1.46.0 
+[175] cluster_2.1.8.1           timechange_0.4.0         
+[177] globals_0.19.1           </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
