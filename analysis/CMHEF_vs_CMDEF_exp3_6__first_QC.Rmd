@@ -1,0 +1,792 @@
+---
+title: "CMHEF vs CMDEF exp 3-6, old"
+output:
+  workflowr::wflow_html:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    toc_depth: 3
+    code_folding: hide
+---
+
+# Setup
+```{r, include=FALSE}
+#load packages
+# Statistical modelling
+library(MASS)
+library(MuMIn)
+library(broom)
+
+# Core data manipulation and plotting
+# Loaded after MASS so dplyr functions take precedence
+library(tidyverse)
+
+# Plotting and figure assembly
+library(pheatmap)
+library(RColorBrewer)
+library(UpSetR)
+library(gridExtra)
+
+# Differential expression and Bioconductor tools
+library(limma)
+library(scDblFinder)
+library(rhdf5)
+library(here)
+
+# Single-cell transcriptomics
+library(Seurat)
+library(sctransform)
+library(scCustomize)
+library(harmony)
+library(clustree)
+library(presto)
+
+set.seed(123)
+```
+# Read in and prepare Datasets
+```{r }
+# Sample 3 healthy
+Exp3_CMHEF_NC <- here("data",  "cellbender_output_Exp3_CMHEF_NC_filtered.h5")
+counts_3H <- Read_CellBender_h5_Mat(file_name = Exp3_CMHEF_NC)
+preQC_3H <- CreateSeuratObject(counts = counts_3H,  project = "Exp3_CMHEF_NC")
+
+# Sample 3 diseased
+Exp3_CMDEF_NC <- here("data", "cellbender_output_Exp3_CMDEF_NC_filtered.h5")
+counts_3D <- Read_CellBender_h5_Mat(file_name = Exp3_CMDEF_NC)
+preQC_3D <- CreateSeuratObject(counts = counts_3D, project = "Exp3_CMDEF_NC")
+
+# Sample 4 healthy 
+Exp4_CMHEF_NC <- here("data","cellbender_output_Exp4_CMHEF_NC_filtered.h5")
+counts_4H <- Read_CellBender_h5_Mat(file_name = Exp4_CMHEF_NC)
+preQC_4H <- CreateSeuratObject(counts = counts_4H, project = "Exp4_CMHEF_NC")
+
+# Sample 4 diseased 
+Exp4_CMDEF_NC <- here("data","cellbender_output_Exp4_CMDEF_NC_filtered.h5")
+counts_4D <- Read_CellBender_h5_Mat(file_name = Exp4_CMDEF_NC)
+preQC_4D <- CreateSeuratObject(counts = counts_4D,project = "Exp4_CMDEF_NC")
+
+#sample 5 healthy
+Exp5_CMHEF_NC <- here("data","cellbender_output_Exp5_CMHEF_NC_filtered.h5")
+counts_5H <- Read_CellBender_h5_Mat(file_name = Exp5_CMHEF_NC)
+preQC_5H <- CreateSeuratObject(counts = counts_5H,project = "Exp5_CMHEF_NC")
+
+#sample 5 diseased
+Exp5_CMDEF_NC <- here("data","cellbender_output_Exp5_CMDEF_NC_filtered.h5")
+counts_5D <- Read_CellBender_h5_Mat(file_name = Exp5_CMDEF_NC)
+preQC_5D <- CreateSeuratObject(counts = counts_5D,project = "Exp5_CMDEF_NC")
+
+#sample 6 healthy
+Exp6_CMHEF_NC <- here("data","cellbender_output_Exp6_CMHEF_NC_filtered.h5")
+counts_6H <- Read_CellBender_h5_Mat(file_name = Exp6_CMHEF_NC)
+preQC_6H <- CreateSeuratObject(counts = counts_6H,project = "Exp6_CMHEF_NC")
+
+#sample 6 diseased
+Exp6_CMDEF_NC <- here("data","cellbender_output_Exp6_CMDEF_NC_filtered.h5")
+counts_6D <- Read_CellBender_h5_Mat(file_name = Exp6_CMDEF_NC)
+preQC_6D <- CreateSeuratObject(counts = counts_6D,project = "Exp6_CMDEF_NC")
+```
+
+```{r }
+# Sample and condition metadata
+
+preQC_3H$sample <- "Exp3_CMHEF_NC"
+preQC_3H$condition <- "healthy"
+
+preQC_3D$sample <- "Exp3_CMDEF_NC"
+preQC_3D$condition <- "diseased"
+
+preQC_4H$sample <- "Exp4_CMHEF_NC"
+preQC_4H$condition <- "healthy"
+
+preQC_4D$sample <- "Exp4_CMDEF_NC"
+preQC_4D$condition <- "diseased"
+
+preQC_5H$sample <- "Exp5_CMHEF_NC"
+preQC_5H$condition <- "healthy"
+
+preQC_5D$sample <- "Exp5_CMDEF_NC"
+preQC_5D$condition <- "diseased"
+
+preQC_6H$sample <- "Exp6_CMHEF_NC"
+preQC_6H$condition <- "healthy"
+
+preQC_6D$sample <- "Exp6_CMDEF_NC"
+preQC_6D$condition <- "diseased"
+
+
+# Biological replicate metadata
+
+preQC_3H$replicate <- "Exp3"
+preQC_3D$replicate <- "Exp3"
+
+preQC_4H$replicate <- "Exp4"
+preQC_4D$replicate <- "Exp4"
+
+preQC_5H$replicate <- "Exp5"
+preQC_5D$replicate <- "Exp5"
+
+preQC_6H$replicate <- "Exp6"
+preQC_6D$replicate <- "Exp6"
+
+```
+
+# PreQC Plots
+```{r, fig.width=8, fig.height=5, fig.align='center'}
+
+# Add mitochondrial percentage to all samples
+preQC_3H[["percent.mt"]] <- PercentageFeatureSet(preQC_3H, pattern = "^MT-")
+preQC_3D[["percent.mt"]] <- PercentageFeatureSet(preQC_3D, pattern = "^MT-")
+preQC_4H[["percent.mt"]] <- PercentageFeatureSet(preQC_4H, pattern = "^MT-")
+preQC_4D[["percent.mt"]] <- PercentageFeatureSet(preQC_4D, pattern = "^MT-")
+preQC_5H[["percent.mt"]] <- PercentageFeatureSet(preQC_5H, pattern = "^MT-")
+preQC_5D[["percent.mt"]] <- PercentageFeatureSet(preQC_5D, pattern = "^MT-")
+preQC_6H[["percent.mt"]] <- PercentageFeatureSet(preQC_6H, pattern = "^MT-")
+preQC_6D[["percent.mt"]] <- PercentageFeatureSet(preQC_6D, pattern = "^MT-")
+
+
+# Add ribosomal protein percentage to all samples
+preQC_3H[["percent.rp"]] <- PercentageFeatureSet(preQC_3H, pattern = "^RP[SL]")
+preQC_3D[["percent.rp"]] <- PercentageFeatureSet(preQC_3D, pattern = "^RP[SL]")
+preQC_4H[["percent.rp"]] <- PercentageFeatureSet(preQC_4H, pattern = "^RP[SL]")
+preQC_4D[["percent.rp"]] <- PercentageFeatureSet(preQC_4D, pattern = "^RP[SL]")
+preQC_5H[["percent.rp"]] <- PercentageFeatureSet(preQC_5H, pattern = "^RP[SL]")
+preQC_5D[["percent.rp"]] <- PercentageFeatureSet(preQC_5D, pattern = "^RP[SL]")
+preQC_6H[["percent.rp"]] <- PercentageFeatureSet(preQC_6H, pattern = "^RP[SL]")
+preQC_6D[["percent.rp"]] <- PercentageFeatureSet(preQC_6D, pattern = "^RP[SL]")
+
+
+
+# Merge all samples for QC visualization
+qc_combined <- merge(
+  preQC_3H,
+  y = list(
+    preQC_3D,
+    preQC_4H,
+    preQC_4D,
+    preQC_5H,
+    preQC_5D,
+    preQC_6H,
+    preQC_6D
+  ),
+  add.cell.ids = c(
+    "Exp3H",
+    "Exp3D",
+    "Exp4H",
+    "Exp4D",
+    "Exp5H",
+    "Exp5D",
+    "Exp6H",
+    "Exp6D"
+  ),
+  project = "QC_compare"
+)
+
+
+# Add abbreviated sample names
+qc_combined$sample_short <- dplyr::recode(
+  qc_combined$sample,
+  "Exp3_CMHEF_NC" = "3H",
+  "Exp3_CMDEF_NC" = "3D",
+  "Exp4_CMHEF_NC" = "4H",
+  "Exp4_CMDEF_NC" = "4D",
+  "Exp5_CMHEF_NC" = "5H",
+  "Exp5_CMDEF_NC" = "5D",
+  "Exp6_CMHEF_NC" = "6H",
+  "Exp6_CMDEF_NC" = "6D"
+)
+
+
+# Plot number of detected genes per nucleus
+VlnPlot(
+  qc_combined,
+  features = "nFeature_RNA",
+  group.by = "sample",
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle("nFeature_RNA") +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 5,
+      r = 5,
+      b = 50,
+      l = 5
+    )
+  )
+
+
+# Plot total RNA counts per nucleus
+VlnPlot(
+  qc_combined,
+  features = "nCount_RNA",
+  group.by = "sample",
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle("nCount_RNA") +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 5,
+      r = 5,
+      b = 50,
+      l = 5
+    )
+  )
+
+
+# Plot mitochondrial percentage
+VlnPlot(
+  qc_combined,
+  features = "percent.mt",
+  group.by = "sample",
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle("percent.mt") +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 10,
+      r = 10,
+      b = 20,
+      l = 40
+    )
+  )
+
+
+# Plot ribosomal protein percentage
+VlnPlot(
+  qc_combined,
+  features = "percent.rp",
+  group.by = "sample",
+  pt.size = 0,
+  ncol = 3
+) +
+  NoLegend() +
+  ggtitle("percent.rp") +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    plot.margin = margin(
+      t = 10,
+      r = 10,
+      b = 20,
+      l = 40
+    )
+  )
+```
+
+
+
+# Doublet Removal
+```{r fig.width=14, fig.height=10, dpi=300}
+# Doublet removal 
+
+sample_list <- list(
+  Exp3_CMHEF_NC = preQC_3H,
+  Exp3_CMDEF_NC = preQC_3D,
+  Exp4_CMHEF_NC = preQC_4H,
+  Exp4_CMDEF_NC = preQC_4D,
+  Exp5_CMHEF_NC = preQC_5H,
+  Exp5_CMDEF_NC = preQC_5D,
+  Exp6_CMHEF_NC = preQC_6H,
+  Exp6_CMDEF_NC = preQC_6D
+)
+
+
+# Run scDblFinder separately for each sample
+for (nm in names(sample_list)) {
+  
+  sce_obj <- as.SingleCellExperiment(sample_list[[nm]])
+  
+  set.seed(123)
+  
+  sce_obj <- scDblFinder(
+    sce_obj,
+    clusters = TRUE
+  )
+  
+  sample_list[[nm]]$scDblFinder.class <-
+    sce_obj$scDblFinder.class
+  
+  sample_list[[nm]]$scDblFinder.score <-
+    sce_obj$scDblFinder.score
+}
+
+
+# Merge all samples before doublet removal
+preQC_combined <- merge(
+  x = sample_list[[1]],
+  y = sample_list[-1],
+  add.cell.ids = names(sample_list),
+  project = "preQC_combined"
+)
+
+
+# Set the order of doublet classifications
+preQC_combined$scDblFinder.class <- factor(
+  preQC_combined$scDblFinder.class,
+  levels = c("singlet", "doublet")
+)
+
+
+# Compare QC metrics between singlets and doublets
+VlnPlot(
+  preQC_combined,
+  features = c(
+    "nCount_RNA",
+    "nFeature_RNA",
+    "percent.mt"
+  ),
+  group.by = "sample",
+  split.by = "scDblFinder.class",
+  layer = "counts",
+  pt.size = 0,
+  ncol = 3
+) & theme(
+  legend.position = "right",
+  axis.text.x = element_text(
+    angle = 45,
+    hjust = 1
+  )
+)
+
+
+# Retain only nuclei classified as singlets
+sample_list_nodoublets <- lapply(
+  sample_list,
+  function(x) {
+    subset(
+      x = x,
+      subset = scDblFinder.class == "singlet"
+    )
+  }
+)
+
+
+# Merge all samples after doublet removal
+preQC_nodoublets_combined <- merge(
+  x = sample_list_nodoublets[[1]],
+  y = sample_list_nodoublets[-1],
+  add.cell.ids = names(sample_list_nodoublets),
+  project = "preQC_nodoublets_combined"
+)
+
+
+# Visualize QC metrics after doublet removal
+VlnPlot(
+  preQC_nodoublets_combined,
+  features = c(
+    "nFeature_RNA",
+    "nCount_RNA",
+    "percent.mt"
+  ),
+  group.by = "sample",
+  layer = "counts",
+  pt.size = 0,
+  ncol = 3
+) & theme(
+  axis.text.x = element_text(
+    angle = 45,
+    hjust = 1
+  )
+)
+
+
+# Display doublet classifications for each sample
+lapply(
+  sample_list,
+  function(x) {
+    table(x$scDblFinder.class)
+  }
+)
+
+
+# Create a summary table of singlets and doublets
+doublet_table <- do.call(
+  rbind,
+  lapply(
+    names(sample_list),
+    function(nm) {
+      
+      tab <- table(
+        sample_list[[nm]]$scDblFinder.class
+      )
+      
+      singlet_count <- if (
+        "singlet" %in% names(tab)
+      ) {
+        as.numeric(tab["singlet"])
+      } else {
+        0
+      }
+      
+      doublet_count <- if (
+        "doublet" %in% names(tab)
+      ) {
+        as.numeric(tab["doublet"])
+      } else {
+        0
+      }
+      
+      total_count <- sum(tab)
+      
+      data.frame(
+        Sample = nm,
+        Singlet = singlet_count,
+        Doublet = doublet_count,
+        Total = total_count,
+        Doublet_percent = round(
+          100 * doublet_count / total_count,
+          1
+        )
+      )
+    }
+  )
+)
+
+
+# View doublet summary
+doublet_table
+```
+
+
+```{r }
+#some checks after doublet removal to be sure that the seurat objects are correct
+lapply(sample_list, function(x) table(x$scDblFinder.class))
+lapply(sample_list_nodoublets, function(x) table(x$scDblFinder.class))
+
+sapply(sample_list, ncol)
+sapply(sample_list_nodoublets, ncol)
+
+
+```
+
+# PostQC plots
+```{r fig.width=14, fig.height=10, dpi=300}
+
+#use QC parameters as when I looked at the samples on their own as I did before
+postQC_3H <- subset(sample_list_nodoublets$Exp3_CMHEF_NC, subset = nFeature_RNA > 600 & percent.mt < 3)
+postQC_3D <- subset(sample_list_nodoublets$Exp3_CMDEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+postQC_4H <- subset(sample_list_nodoublets$Exp4_CMHEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+postQC_4D <- subset(sample_list_nodoublets$Exp4_CMDEF_NC, subset = nFeature_RNA > 900 & percent.mt < 3)
+postQC_5H <- subset(sample_list_nodoublets$Exp5_CMHEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+postQC_5D <- subset(sample_list_nodoublets$Exp5_CMDEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+postQC_6H <- subset(sample_list_nodoublets$Exp6_CMHEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+postQC_6D <- subset(sample_list_nodoublets$Exp6_CMDEF_NC, subset = nFeature_RNA > 800 & percent.mt < 3)
+
+Post_QC_plot <- merge(
+  postQC_3H,
+  y = list(postQC_3D, postQC_4H, postQC_4D, postQC_5H, postQC_5D, postQC_6H, postQC_6D),
+  add.cell.ids = c("Exp3H", "Exp3D", "Exp4H", "Exp4D", "Exp5H", "Exp5D", "Exp6H", "Exp6D"),
+  project = "Post_QC"
+)
+
+VlnPlot(
+  Post_QC_plot,
+  features = c("nFeature_RNA", "nCount_RNA", "percent.mt", "percent.rp"),
+  group.by = "sample",
+  ncol = 4,
+  pt.size = 0
+) & theme(
+  axis.text.x = element_text(angle = 45, hjust = 1)
+)
+```
+
+# Normalization
+```{r }
+
+#normalize, each sample individually, and new seed
+set.seed(124)
+# normalization (per sample, before Harmony)
+
+options(future.globals.maxSize = 2 * 1024^3)  # 2 GB
+
+Norm_postQC_3H <- SCTransform(
+  postQC_3H,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_3D <- SCTransform(
+  postQC_3D,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_4H <- SCTransform(
+  postQC_4H,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_4D <- SCTransform(
+  postQC_4D,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_5H <- SCTransform(
+  postQC_5H,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_5D <- SCTransform(
+  postQC_5D,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_6H <- SCTransform(
+  postQC_6H,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+Norm_postQC_6D <- SCTransform(
+  postQC_6D,
+  assay = "RNA",
+  vst.flavor = "v2",
+  vars.to.regress = "percent.mt"
+)
+
+
+# Merge the SCT-normalized objects
+Norm_Post_QC <- merge(
+  x = Norm_postQC_3H,
+  y = list(
+    Norm_postQC_3D,
+    Norm_postQC_4H,
+    Norm_postQC_4D,
+    Norm_postQC_5H,
+    Norm_postQC_5D,
+    Norm_postQC_6H,
+    Norm_postQC_6D
+  ),
+  add.cell.ids = c("3H", "3D", "4H", "4D", "5H", "5D", "6H", "6D"),
+  project = "Post_QC"
+)
+
+# Use SCT assay for downstream PCA
+DefaultAssay(Norm_Post_QC) <- "SCT"
+```
+
+
+
+# PCA
+```{r }
+#linear dimensionality reduction
+set.seed(125)
+# choose one shared variable-feature set across the 8 SCT-normalized samples
+features <- SelectIntegrationFeatures(
+  object.list = list(
+    Norm_postQC_3H,
+    Norm_postQC_3D,
+    Norm_postQC_4H,
+    Norm_postQC_4D,
+    Norm_postQC_5H,
+    Norm_postQC_5D,
+    Norm_postQC_6H,
+    Norm_postQC_6D
+  ),
+  nfeatures = 3000
+)
+
+# assign those shared features to the merged object
+VariableFeatures(Norm_Post_QC) <- features
+
+# make sure PCA uses the SCT assay
+DefaultAssay(Norm_Post_QC) <- "SCT"
+
+# now run PCA
+Norm_Post_QC <- RunPCA(
+  Norm_Post_QC,
+  features = VariableFeatures(Norm_Post_QC)
+)
+```
+
+# Visualize PCA
+```{r }
+#visualizations of the PCA
+VizDimLoadings(Norm_Post_QC, dims = 1:2, reduction = "pca")
+
+DimPlot(Norm_Post_QC, reduction = "pca") + NoLegend()
+
+DimHeatmap(Norm_Post_QC, dims = 1, cells = 500, balanced = TRUE)
+
+DimHeatmap(Norm_Post_QC, dims = 1:15, cells = 500, balanced = TRUE)
+
+ElbowPlot(Norm_Post_QC)
+
+ElbowPlot(Norm_Post_QC, ndims = 50) +
+  scale_y_continuous(breaks = seq(0, 50, by = 2))
+
+```
+
+# pre-Harmony UMAP
+```{r }
+set.seed(126)
+#before integration
+# pre-Harmony UMAP
+Norm_Post_QC <- RunUMAP(
+  Norm_Post_QC,
+  reduction = "pca",
+  dims = 1:40,
+  reduction.name = "umap.pca"
+)
+
+DimPlot(Norm_Post_QC, reduction = "umap.pca", group.by = "sample")
+DimPlot(Norm_Post_QC, reduction = "umap.pca", group.by = "condition")
+
+
+
+```
+# post-Harmony UMAP
+```{r }
+#do harmony and after harmony umap
+set.seed(127)
+Norm_Post_QC <- RunHarmony(
+  object = Norm_Post_QC,
+  group.by.vars = "sample",
+  reduction.use = "pca",
+  dims.use=1:40,
+  plot_convergence = TRUE
+)
+
+# post-Harmony UMAP
+Norm_Post_QC <- RunUMAP(
+  Norm_Post_QC,
+  reduction = "harmony",
+  dims = 1:40,
+  reduction.name = "umap.harmony"
+)
+
+DimPlot(Norm_Post_QC, reduction = "umap.harmony", group.by = "sample")
+DimPlot(Norm_Post_QC, reduction = "umap.harmony", group.by = "condition")
+
+
+
+```
+
+# Clustree
+```{r fig.width=12, fig.height=9, dpi=300}
+set.seed(128)
+# clustering on Harmony
+Norm_Post_QC <- FindNeighbors(
+  Norm_Post_QC,
+  reduction = "harmony",
+  dims = 1:40
+)
+
+
+#figure out which resolution I want/need
+Norm_Post_QC <- FindClusters(Norm_Post_QC, resolution = seq(0.1, 0.8, by=0.1))
+clustree::clustree(Norm_Post_QC@meta.data[,grep("SCT_snn_res", colnames(Norm_Post_QC@meta.data))],
+                   prefix = "SCT_snn_res.")
+
+```
+
+# Chose a resolution for UMAP
+```{r }
+set.seed(129)
+Norm_Post_QC_0.3 <- FindClusters(
+  Norm_Post_QC,
+  resolution = 0.3
+)
+```
+
+
+# UMAP Resolution 0.3
+```{r fig.width=10, fig.height=7, dpi=300}
+set.seed(130)
+#umap, dim 1.40 and resolution 0.3
+DimPlot(
+  Norm_Post_QC_0.3,
+  reduction = "umap.harmony",
+  group.by = "seurat_clusters",
+  label = TRUE,
+  repel = TRUE
+)
+
+```
+
+# QC on Clusters 0.3
+```{r fig.width=10, fig.height=7, dpi=300}
+VlnPlot(Norm_Post_QC_0.3, features = c("nCount_RNA", "nFeature_RNA", "percent.mt", "percent.rp", "scDblFinder.score"), ncol = 2, pt.size = 0) + theme(axis.title.x = element_blank())
+
+
+
+```
+# Canonical Markers 0.3
+```{r }
+canonical_markers <- c(
+  "TNNT2", "ACTC1", "MYH6", "MYH7", "TNNI3", "RYR2", "PLN",
+  "DCN", "LUM", "COL1A1", "COL1A2", "FBLN1", "COL3A1",
+  "PECAM1", "CDH5", "KDR", "EMCN", "VWF", "EGFL7", "FLT1"
+)
+
+DotPlot(Norm_Post_QC_0.3, features = canonical_markers) + RotatedAxis()
+```
+
+# Export Seurat Object
+```{r }
+# Create the output folder if it does not already exist
+dir.create(
+  here::here("output"),
+  showWarnings = FALSE,
+  recursive = TRUE
+)
+
+# Save the complete initial clustered object
+saveRDS(
+  Norm_Post_QC_0.3,
+  file = here::here(
+    "output",
+    "snRNAseq_initial_QC_and_Clustering.rds"
+  )
+)
+
+#Check that it saved correctly
+checkpoint_path <- here::here(
+  "output",
+  "snRNAseq_initial_clustered_before_iterative_QC.rds"
+)
+
+file.exists(checkpoint_path)
+file.info(checkpoint_path)$size / 1024^3
+
+```
+
+# Conclusion
+So we have problematic clusters: cluster number 3 (CM) has a high scDblFinder score. Cluster 9 has high percentages of mitochondrial genes and ribosomal proteins (CM), it also has relatively low features and counts. Cluster 7 has low features and counts and is positve for ECs and fibroblasts.
+At this point I will save the Seurat Object, do further checks on the three problematic clusters, possibly remove some and redo QC. 
+
